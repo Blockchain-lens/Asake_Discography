@@ -24,6 +24,8 @@ Emerging presence in Spanish-speaking regions
 
 Asake’s growth trajectory shows a transition from local dominance to multi-language global reach, supported by strong streaming performance and expanding chart presence.
 
+All queries and schemas are attached in their respective folders in the repository.
+
 SQL (MySQL)
 Data Modeling (Normalization, POWER BI & Dimension tables)
 GitHub (Version control & documentation)
@@ -34,7 +36,7 @@ Data storytelling
 Real-world business insights
 
 
-Qudus Ibrahim
+Qudus Adegboyega Ibrahim
 Data Analyst | SQL | Data Visualization
 
 
