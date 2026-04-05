@@ -1,0 +1,81 @@
+song_id,song_title,platform,streams
+20,2:30,"Apple Music",26000000
+20,2:30,Spotify,40000000
+32,Active,"Apple Music",22000000
+32,Active,Spotify,33000000
+14,Amapiano,"Apple Music",21000000
+14,Amapiano,Spotify,32000000
+24,Awodi,"Apple Music",18000000
+24,Awodi,Spotify,25000000
+30,Basquiat,"Apple Music",50000000
+30,Basquiat,Spotify,70000000
+1,Dull,"Apple Music",12000000
+1,Dull,Spotify,18000000
+3,Dupe,"Apple Music",13000000
+3,Dupe,Spotify,19500000
+25,"End Of Discussion","Apple Music",17000000
+25,"End Of Discussion",Spotify,23000000
+38,Energy,"Apple Music",26000000
+38,Energy,Spotify,37000000
+37,Flex,"Apple Music",23000000
+37,Flex,Spotify,34000000
+31,"Fuji Vibe","Apple Music",25000000
+31,"Fuji Vibe",Spotify,38000000
+23,"Great Guy","Apple Music",21000000
+23,"Great Guy",Spotify,30000000
+19,Happiness,"Apple Music",60000000
+19,Happiness,Spotify,85000000
+17,"I Believe","Apple Music",18500000
+17,"I Believe",Spotify,27000000
+26,Introduction,"Apple Music",10000000
+26,Introduction,Spotify,15000000
+4,Joha,"Apple Music",22000000
+4,Joha,Spotify,35000000
+18,"Lonely At The Top","Apple Music",140000000
+18,"Lonely At The Top",Spotify,200000000
+39,"Lungu Boy Anthem","Apple Music",30000000
+39,"Lungu Boy Anthem",Spotify,45000000
+28,MMS,"Apple Music",68000000
+28,MMS,Spotify,95000000
+29,Mood,"Apple Music",28000000
+29,Mood,Spotify,42000000
+6,Muse,"Apple Music",10000000
+6,Muse,Spotify,16000000
+15,"No Competition","Apple Music",30000000
+15,"No Competition",Spotify,45000000
+7,Nzaza,"Apple Music",9500000
+7,Nzaza,Spotify,15500000
+22,Olorun,"Apple Music",23000000
+22,Olorun,Spotify,35000000
+33,"Only Me","Apple Music",19000000
+33,"Only Me",Spotify,28000000
+2,Organise,"Apple Music",15000000
+2,Organise,Spotify,22000000
+5,Ototo,"Apple Music",11000000
+5,Ototo,Spotify,17000000
+40,Outro,"Apple Music",12000000
+40,Outro,Spotify,18000000
+11,"Peace Be Unto You (PBUY)","Apple Music",65000000
+11,"Peace Be Unto You (PBUY)",Spotify,90000000
+8,Reason,"Apple Music",10500000
+8,Reason,Spotify,16500000
+16,Remember,"Apple Music",20000000
+16,Remember,Spotify,30000000
+35,Shine,"Apple Music",21000000
+35,Shine,Spotify,31000000
+27,Start,"Apple Music",13000000
+27,Start,Spotify,20000000
+10,Sungba,"Apple Music",180000000
+10,Sungba,Spotify,250000000
+13,Sunshine,"Apple Music",19000000
+13,Sunshine,Spotify,28000000
+36,Suru,"Apple Music",20000000
+36,Suru,Spotify,29000000
+9,Terminator,"Apple Music",80000000
+9,Terminator,Spotify,120000000
+12,Trabaye,"Apple Music",14000000
+12,Trabaye,Spotify,21000000
+34,Worldwide,"Apple Music",24000000
+34,Worldwide,Spotify,36000000
+21,Yoga,"Apple Music",42000000
+21,Yoga,Spotify,60000000
