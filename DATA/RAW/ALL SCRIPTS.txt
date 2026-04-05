@@ -1,0 +1,565 @@
+
+
+AFTER CREATING SCHEMA TITLED ASAKE'S DISCOGRAPHY..
+
+-- CREATE ESSENTIAL TABLES--
+
+
+CREATE TABLE artists (
+    artist_id SERIAL PRIMARY KEY,
+    artist_name VARCHAR(100) UNIQUE NOT NULL,
+    country VARCHAR(50)
+);
+
+
+-----------------------------------
+
+CREATE TABLE albums (
+    album_id SERIAL PRIMARY KEY,
+    album_title VARCHAR(100) NOT NULL,
+    release_date DATE,
+    label VARCHAR(100)
+);
+
+
+
+-------------------------------------
+
+
+CREATE TABLE songs (
+    song_id SERIAL PRIMARY KEY,
+    song_title VARCHAR(100) NOT NULL,
+    album_id INT REFERENCES albums(album_id),
+    duration_seconds INT,
+    release_date DATE
+);
+
+
+--------------------------------------------
+
+
+CREATE TABLE song_features (
+    song_id INT REFERENCES songs(song_id),
+    artist_id INT REFERENCES artists(artist_id),
+    PRIMARY KEY (song_id, artist_id)
+);
+
+
+----------------------------------------------
+
+
+CREATE TABLE genres (
+    genre_id SERIAL PRIMARY KEY,
+    genre_name VARCHAR(50) UNIQUE
+);
+
+
+
+---------------------------------------------
+
+CREATE TABLE song_genres (
+    song_id INT REFERENCES songs(song_id),
+    genre_id INT REFERENCES genres(genre_id),
+    PRIMARY KEY (song_id, genre_id)
+);
+
+
+--------------------------------------------
+
+CREATE TABLE streaming_stats (
+    song_id INT PRIMARY KEY REFERENCES songs(song_id),
+    spotify_streams BIGINT,
+    apple_music_streams BIGINT,
+    youtube_views BIGINT,
+    peak_chart_position INT
+);
+
+
+
+-----------------------------------------------
+
+
+
+
+--  START INSERTING ESSENTIAL DATA --
+
+
+INSERT INTO artists (artist_name, country)
+VALUES ('Asake', 'Nigeria');
+
+
+--------------------------
+
+
+INSERT INTO albums (album_title, release_date, label)
+VALUES
+('Mr. Money With The Vibe', '2022-09-08', 'YBNL'),
+('Work of Art', '2023-06-16', 'YBNL'),
+('Lungu Boy', '2024-08-09', 'YBNL');
+
+
+-------------------------
+MMWTV (2022)
+
+INSERT INTO songs (song_title, album_id, duration_seconds, release_date) VALUES
+('Dull', 1, 145, '2022-09-08'),
+('Organise', 1, 152, '2022-09-08'),
+('Dupe', 1, 150, '2022-09-08'),
+('Joha', 1, 156, '2022-09-08'),
+('Ototo', 1, 160, '2022-09-08'),
+('Muse', 1, 170, '2022-09-08'),
+('Nzaza', 1, 165, '2022-09-08'),
+('Reason', 1, 158, '2022-09-08'),
+('Terminator', 1, 172, '2022-09-08'),
+('Sungba', 1, 175, '2022-09-08'),
+('Peace Be Unto You (PBUY)', 1, 162, '2022-09-08'),
+('Trabaye', 1, 168, '2022-09-08');
+
+
+---------------------------------------------------
+
+
+WORK OF ART (2023)
+
+INSERT INTO songs (song_title, album_id, duration_seconds, release_date) VALUES
+('Sunshine', 2, 160, '2023-06-16'),
+('Amapiano', 2, 155, '2023-06-16'),
+('No Competition', 2, 158, '2023-06-16'),
+('Remember', 2, 165, '2023-06-16'),
+('I Believe', 2, 170, '2023-06-16'),
+('Lonely At The Top', 2, 185, '2023-06-16'),
+('Happiness', 2, 175, '2023-06-16'),
+('2:30', 2, 162, '2023-06-16'),
+('Yoga', 2, 180, '2023-06-16'),
+('Olorun', 2, 168, '2023-06-16'),
+('Great Guy', 2, 172, '2023-06-16'),
+('Awodi', 2, 165, '2023-06-16'),
+('End Of Discussion', 2, 160, '2023-06-16'),
+('Introduction', 2, 140, '2023-06-16');
+
+
+
+-----------------------------
+
+LUNGU BOY (2024)
+
+
+INSERT INTO songs (song_title, album_id, duration_seconds, release_date) VALUES
+('Start', 3, 150, '2024-08-09'),
+('MMS', 3, 175, '2024-08-09'),
+('Mood', 3, 165, '2024-08-09'),
+('Basquiat', 3, 165, '2024-08-09'),
+('Fuji Vibe', 3, 170, '2024-08-09'),
+('Active', 3, 160, '2024-08-09'),
+('Only Me', 3, 158, '2024-08-09'),
+('Worldwide', 3, 172, '2024-08-09'),
+('Shine', 3, 168, '2024-08-09'),
+('Suru', 3, 162, '2024-08-09'),
+('Flex', 3, 170, '2024-08-09'),
+('Energy', 3, 165, '2024-08-09'),
+('Lungu Boy Anthem', 3, 180, '2024-08-09'),
+('Outro', 3, 145, '2024-08-09');
+
+
+------------------------------------------------------
+
+
+-- INSERT DATA INTO STREAMING STATS FOR EACH ALBUM --
+
+INSERT INTO streaming_stats (song_id, spotify_streams, apple_music_streams)
+SELECT
+    song_id,
+    CASE song_title
+        -- Mr. Money With The Vibe
+        WHEN 'Dull' THEN 18000000
+        WHEN 'Organise' THEN 22000000
+        WHEN 'Dupe' THEN 19500000
+        WHEN 'Joha' THEN 35000000
+        WHEN 'Ototo' THEN 17000000
+        WHEN 'Muse' THEN 16000000
+        WHEN 'Nzaza' THEN 15500000
+        WHEN 'Reason' THEN 16500000
+        WHEN 'Terminator' THEN 120000000
+        WHEN 'Sungba' THEN 250000000
+        WHEN 'Peace Be Unto You (PBUY)' THEN 90000000
+        WHEN 'Trabaye' THEN 21000000
+
+        -- Work of Art
+        WHEN 'Sunshine' THEN 28000000
+        WHEN 'Amapiano' THEN 32000000
+        WHEN 'No Competition' THEN 45000000
+        WHEN 'Remember' THEN 30000000
+        WHEN 'I Believe' THEN 27000000
+        WHEN 'Lonely At The Top' THEN 200000000
+        WHEN 'Happiness' THEN 85000000
+        WHEN '2:30' THEN 40000000
+        WHEN 'Yoga' THEN 60000000
+        WHEN 'Olorun' THEN 35000000
+        WHEN 'Great Guy' THEN 30000000
+        WHEN 'Awodi' THEN 25000000
+        WHEN 'End Of Discussion' THEN 23000000
+        WHEN 'Introduction' THEN 15000000
+
+        -- Lungu Boy
+        WHEN 'Start' THEN 20000000
+        WHEN 'MMS' THEN 95000000
+        WHEN 'Mood' THEN 42000000
+        WHEN 'Basquiat' THEN 70000000
+        WHEN 'Fuji Vibe' THEN 38000000
+        WHEN 'Active' THEN 33000000
+        WHEN 'Only Me' THEN 28000000
+        WHEN 'Worldwide' THEN 36000000
+        WHEN 'Shine' THEN 31000000
+        WHEN 'Suru' THEN 29000000
+        WHEN 'Flex' THEN 34000000
+        WHEN 'Energy' THEN 37000000
+        WHEN 'Lungu Boy Anthem' THEN 45000000
+        WHEN 'Outro' THEN 18000000
+    END AS spotify_streams,
+
+    CASE song_title
+        -- Apple Music (typically lower but strong in Nigeria)
+        WHEN 'Dull' THEN 12000000
+        WHEN 'Organise' THEN 15000000
+        WHEN 'Dupe' THEN 13000000
+        WHEN 'Joha' THEN 22000000
+        WHEN 'Ototo' THEN 11000000
+        WHEN 'Muse' THEN 10000000
+        WHEN 'Nzaza' THEN 9500000
+        WHEN 'Reason' THEN 10500000
+        WHEN 'Terminator' THEN 80000000
+        WHEN 'Sungba' THEN 180000000
+        WHEN 'Peace Be Unto You (PBUY)' THEN 65000000
+        WHEN 'Trabaye' THEN 14000000
+
+        WHEN 'Sunshine' THEN 19000000
+        WHEN 'Amapiano' THEN 21000000
+        WHEN 'No Competition' THEN 30000000
+        WHEN 'Remember' THEN 20000000
+        WHEN 'I Believe' THEN 18500000
+        WHEN 'Lonely At The Top' THEN 140000000
+        WHEN 'Happiness' THEN 60000000
+        WHEN '2:30' THEN 26000000
+        WHEN 'Yoga' THEN 42000000
+        WHEN 'Olorun' THEN 23000000
+        WHEN 'Great Guy' THEN 21000000
+        WHEN 'Awodi' THEN 18000000
+        WHEN 'End Of Discussion' THEN 17000000
+        WHEN 'Introduction' THEN 10000000
+
+        WHEN 'Start' THEN 13000000
+        WHEN 'MMS' THEN 68000000
+        WHEN 'Mood' THEN 28000000
+        WHEN 'Basquiat' THEN 50000000
+        WHEN 'Fuji Vibe' THEN 25000000
+        WHEN 'Active' THEN 22000000
+        WHEN 'Only Me' THEN 19000000
+        WHEN 'Worldwide' THEN 24000000
+        WHEN 'Shine' THEN 21000000
+        WHEN 'Suru' THEN 20000000
+        WHEN 'Flex' THEN 23000000
+        WHEN 'Energy' THEN 26000000
+        WHEN 'Lungu Boy Anthem' THEN 30000000
+        WHEN 'Outro' THEN 12000000
+    END AS apple_music_streams
+FROM songs;
+
+
+-----------------------------------------
+--  EXPANDING THE DATABASE TO KNOW HOW THE ALBUMS PERFORMED IN OTHER COUNTRIES(GLOBALLY)
+
+
+CREATE TABLE countries (
+    country_id SERIAL PRIMARY KEY,
+    country_name VARCHAR(100) UNIQUE NOT NULL,
+    region VARCHAR(50)
+);
+
+
+
+--------  
+
+INSERT INTO COUNTRY TABLE
+
+INSERT INTO countries (country_name, region) VALUES
+('Nigeria', 'Africa'),
+('United Kingdom', 'Europe'),
+('United States', 'North America'),
+('Canada', 'North America'),
+('South Africa', 'Africa'),
+('France', 'Europe');
+
+
+--------------------------------
+
+CREATE A CHARTS TABLE FOR THE COUNTRY / REGIONAL STATS
+
+CREATE TABLE charts (
+    chart_id SERIAL PRIMARY KEY,
+    chart_name VARCHAR(100) NOT NULL,
+    platform VARCHAR(50) -- Apple Music, Spotify, Official
+);
+
+
+------------------------------
+
+INSERT INTO CHARTS
+
+
+INSERT INTO charts (chart_name, platform) VALUES
+('Top Albums Nigeria', 'Apple Music'),
+('Top Albums UK', 'Apple Music'),
+('Top Albums USA', 'Apple Music'),
+('Top Albums Global', 'Spotify'),
+('Official Albums Chart UK', 'Official');
+
+
+--------------------------
+
+CREATE TABLE album_charts (
+    album_id INT REFERENCES albums(album_id),
+    country_id INT REFERENCES countries(country_id),
+    chart_id INT REFERENCES charts(chart_id),
+    peak_position INT,
+    weeks_on_chart INT,
+    chart_date DATE,
+    PRIMARY KEY (album_id, country_id, chart_id)
+);
+
+---------------------------------------
+
+INSERT INTO ALBUM CHARTS TABLE
+
+INSERT INTO album_charts 
+(album_id, country_id, chart_id, peak_position, weeks_on_chart, chart_date)
+VALUES
+-- Mr. Money With The Vibe
+(1, 1, 1, 1, 30, '2022-09-15'),  -- Nigeria
+(1, 2, 5, 66, 2, '2022-09-30'), -- UK Official
+(1, 3, 3, 12, 6, '2022-10-01'), -- USA Apple
+
+-- Work of Art
+(2, 1, 1, 1, 28, '2023-06-20'),
+(2, 2, 5, 45, 3, '2023-06-30'),
+(2, 4, 4, 8, 10, '2023-07-01'),
+
+-- Lungu Boy
+(3, 1, 1, 1, 18, '2024-08-15'),
+(3, 5, 4, 5, 12, '2024-08-20'),
+(3, 6, 4, 14, 6, '2024-08-22');
+
+
+------------------------
+
+MORE CHARTS WHERE ALBUMS WERE FOUND
+
+
+INSERT INTO charts (chart_name, platform) VALUES
+('Spotify Global Albums', 'Spotify'),
+('Apple Music Global Albums', 'Apple Music'),
+('Billboard World Albums', 'Billboard'),
+('Billboard 200', 'Billboard'),
+('UK Apple Music Albums', 'Apple Music'),
+('France Albums Chart', 'Official'),
+('Canada Albums Chart', 'Official'),
+('South Africa Albums Chart', 'Official');
+
+
+-----------------------------------
+
+ADD MORE COUNTRIES WHERE ALBUMS CHARTED
+
+
+INSERT INTO countries (country_name, region) VALUES
+('Germany', 'Europe'),
+('Netherlands', 'Europe'),
+('Australia', 'Oceania'),
+('Ghana', 'Africa'),
+('Kenya', 'Africa');
+
+
+
+--------------------------------------
+ADD GLOBAL CHART ALBUM APPEARANCE FOR EACH ALBUM
+
+MMWTV
+INSERT INTO album_charts
+(album_id, country_id, chart_id, peak_position, weeks_on_chart, chart_date)
+VALUES
+(1, 1, 6, 2, 22, '2022-09-20'),  -- Apple Music Global
+(1, 1, 7, 3, 18, '2022-09-20'),  -- Spotify Global
+(1, 3, 8, 4, 10, '2022-10-05'),  -- Billboard World Albums
+(1, 2, 10, 12, 4, '2022-09-28'), -- UK Apple Music
+(1, 7, 11, 18, 3, '2022-10-02'); -- France
+
+--------------------------------------
+WOA
+INSERT INTO album_charts
+(album_id, country_id, chart_id, peak_position, weeks_on_chart, chart_date)
+VALUES
+(2, 1, 6, 1, 26, '2023-06-20'),
+(2, 1, 7, 2, 24, '2023-06-20'),
+(2, 3, 8, 2, 14, '2023-07-01'),
+(2, 3, 9, 45, 2, '2023-07-01'), -- Billboard 200
+(2, 8, 12, 10, 6, '2023-06-30'), -- Canada
+(2, 6, 11, 15, 5, '2023-07-05'); -- France
+
+---------------------------------------
+
+LUNGU BOY
+
+
+INSERT INTO album_charts
+(album_id, country_id, chart_id, peak_position, weeks_on_chart, chart_date)
+VALUES
+(3, 1, 6, 1, 14, '2024-08-15'),
+(3, 1, 7, 1, 12, '2024-08-15'),
+(3, 5, 12, 3, 10, '2024-08-20'), -- South Africa
+(3, 9, 11, 9, 6, '2024-08-25'),  -- Netherlands
+(3, 10, 11, 16, 4, '2024-08-28'); -- Australia
+
+-----------------------------------------------------
+
+
+CREATE A LANGUAGE TABLE
+
+
+CREATE TABLE languages (
+    language_id SERIAL PRIMARY KEY,
+    language_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+
+-----------------------------------------
+
+
+INSERT INTO LANGUAGE TABLE
+
+INSERT INTO languages (language_name) VALUES
+('English'),
+('French'),
+('Yoruba'),
+('Pidgin'),
+('Zulu');
+
+-----------------------------------
+
+LANGUAGE AND COUNTRY BRIDGE TABLE
+
+CREATE TABLE country_languages (
+    country_id INT REFERENCES countries(country_id),
+    language_id INT REFERENCES languages(language_id),
+    PRIMARY KEY (country_id, language_id)
+);
+
+
+---------------------------------
+
+INSERT COUNTRY LANGUAGE MAPPING TO SHOW CORRELATION
+
+
+INSERT INTO country_languages (country_id, language_id) VALUES
+-- Nigeria
+(1, 1), -- English
+(1, 3), -- Yoruba
+(1, 4), -- Pidgin
+
+-- United Kingdom
+(2, 1), -- English
+
+-- United States
+(3, 1), -- English
+
+-- France
+(6, 2), -- French
+
+-- South Africa
+(5, 1), -- English
+(5, 5); -- Zulu
+
+---------------------------------------
+
+INSERT SPANISH AND PORTUGESE SPEAKING COUNTRIES INTO THE MIX
+
+INSERT INTO languages (language_name) VALUES
+('Spanish'),
+('Portuguese');
+
+
+--------------------------------------
+
+
+INSERT INTO countries (country_name, region) VALUES
+('Spain', 'Europe'),
+('Mexico', 'North America'),
+('Argentina', 'South America'),
+('Brazil', 'South America'),
+('Portugal', 'Europe');
+
+-------------------------------------------
+
+REMAP THESE SPANISH AND PORTUGESE LANGUAGE WITH THEIR COUNTRIES LIKE WE DID EARLIER
+
+INSERT INTO country_languages (country_id, language_id) VALUES
+-- Spanish-speaking
+((SELECT country_id FROM countries WHERE country_name = 'Spain'),
+ (SELECT language_id FROM languages WHERE language_name = 'Spanish')),
+
+((SELECT country_id FROM countries WHERE country_name = 'Mexico'),
+ (SELECT language_id FROM languages WHERE language_name = 'Spanish')),
+
+((SELECT country_id FROM countries WHERE country_name = 'Argentina'),
+ (SELECT language_id FROM languages WHERE language_name = 'Spanish')),
+
+-- Portuguese-speaking
+((SELECT country_id FROM countries WHERE country_name = 'Brazil'),
+ (SELECT language_id FROM languages WHERE language_name = 'Portuguese')),
+
+((SELECT country_id FROM countries WHERE country_name = 'Portugal'),
+ (SELECT language_id FROM languages WHERE language_name = 'Portuguese'));
+
+------------------------------------------------
+
+ADD NEW CHART FROM THESE REGIONS, THIS IS DONE TO SEE HOW THE ALBUMS FARED IN THESE COUNTRIES
+
+
+INSERT INTO album_charts
+(album_id, country_id, chart_id, peak_position, weeks_on_chart, chart_date)
+VALUES
+-- Work of Art
+(2, (SELECT country_id FROM countries WHERE country_name = 'Spain'), 
+    (SELECT chart_id FROM charts WHERE chart_name = 'Spotify Global Albums'),
+    32, 3, '2023-07-05'),
+
+(2, (SELECT country_id FROM countries WHERE country_name = 'Brazil'), 
+    (SELECT chart_id FROM charts WHERE chart_name = 'Spotify Global Albums'),
+    18, 5, '2023-07-07'),
+
+-- Lungu Boy
+(3, (SELECT country_id FROM countries WHERE country_name = 'Portugal'), 
+    (SELECT chart_id FROM charts WHERE chart_name = 'Apple Music Global Albums'),
+    22, 4, '2024-08-25'),
+
+(3, (SELECT country_id FROM countries WHERE country_name = 'Brazil'), 
+    (SELECT chart_id FROM charts WHERE chart_name = 'Spotify Global Albums'),
+    14, 6, '2024-08-28');
+
+
+
+---------------------------------
+
+INSERT INTO charts (chart_name, platform) VALUES
+('Spotify Top Albums Brazil', 'Spotify'),
+('Apple Music Top Albums Brazil', 'Apple Music'),
+('Spotify Top Albums Spain', 'Spotify'),
+('Apple Music Top Albums Spain', 'Apple Music'),
+('Spotify Top Albums Portugal', 'Spotify'),
+('Apple Music Top Albums Portugal', 'Apple Music');
+
+
+
+-------------------------------------
+
+
+
+
